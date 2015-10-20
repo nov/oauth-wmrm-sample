@@ -9,6 +9,7 @@
     <h1>Unauthenticated Window</h1>
     <button id="authorize-button">Authorize!</button>
     <script>
+      var redirect_uri = 'http://wmrm-rp.dev';
       $('#authorize-button').click(function () {
         window.opener.postMessage({
           type: 'authorization_response',
@@ -16,7 +17,7 @@
             token: 'access-token-with-user-interaction',
             state: '***'
           }
-        }, 'http://wmrm-rp.dev');
+        }, redirect_uri);
       });
     </script>
   </body>

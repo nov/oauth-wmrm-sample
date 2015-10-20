@@ -7,13 +7,14 @@
   <body>
     <h1>Authenticated Window</h1>
     <script>
+      var redirect_uri = 'http://wmrm-rp.dev';
       window.parent.postMessage({
         type: 'authorization_response',
         response: {
           token: 'access-token-without-user-interaction',
           state: '***'
         }
-      }, 'http://wmrm-rp.dev');
+      }, redirect_uri);
     </script>
   </body>
 </html>
