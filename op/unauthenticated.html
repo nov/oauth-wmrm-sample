@@ -3,8 +3,21 @@
   <head>
     <meta charset="utf-8">
     <title>Unauthenticated Window</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   </head>
   <body>
     <h1>Unauthenticated Window</h1>
+    <button id="authorize-button">Authorize!</button>
+    <script>
+      $('#authorize-button').click(function () {
+        window.opener.postMessage({
+          type: 'authorization_response',
+          response: {
+            token: 'access-token-with-user-interaction',
+            state: '***'
+          }
+        }, 'http://wmrm-rp.dev');
+      });
+    </script>
   </body>
 </html>
