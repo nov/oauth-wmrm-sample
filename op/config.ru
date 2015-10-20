@@ -4,7 +4,11 @@ require 'sinatra/base'
 # The project root directory
 $root = __dir__
 
-class SinatraStaticServer < Sinatra::Base
+class StaticServer < Sinatra::Base
+  configure do
+    set :protection, except: [:frame_options]
+  end
+
   get(/.+/) do
     send_sinatra_file(request.path) {404}
   end
@@ -20,4 +24,4 @@ class SinatraStaticServer < Sinatra::Base
   end
 end
 
-run SinatraStaticServer
+run StaticServer
