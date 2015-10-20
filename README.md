@@ -2,13 +2,16 @@
 
 ## Pre-requirements
 
-* ruby
-* bundler
-* [pow](http://pow.cx)
-
-Prepare above environments, then clone repo and bundle required gems.
+Expecting your Mac has ruby 2.0 or above.
 
 ```
+# install bundler gem
+gem install bundler
+
+# install pow
+curl get.pow.cx | sh
+
+# clone repo & install required gems using bundler
 git clone git@github.com:nov/oauth-wmrm-sample.git
 cd oauth-wmrm-sample
 bundle install
