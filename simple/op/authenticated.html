@@ -3,18 +3,20 @@
   <head>
     <meta charset="utf-8">
     <title>Authenticated Window</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/jquery.deparam.js"></script>
   </head>
   <body>
     <h1>Authenticated Window</h1>
     <script>
-      var redirect_uri = 'http://wmrm-rp.dev';
+      var params = $.deparam(location.search.substr(1));
       window.parent.postMessage({
         type: 'authorization_response',
         response: {
           token: 'access-token-without-user-interaction',
-          state: '***'
+          state: params.state
         }
-      }, redirect_uri);
+      }, params.redirect_uri);
     </script>
   </body>
 </html>

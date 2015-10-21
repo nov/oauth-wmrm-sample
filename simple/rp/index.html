@@ -10,14 +10,14 @@
 
     <article>
       <h2>Using Authenticated iframe Window</h2>
-      <iframe src="http://wmrm-op.dev/authenticated.html?client_id=abc&state=xyzresonse_type=token&response_mode=web_message&redirect_uri=http://wmrm-rp.dev"></iframe>
+      <iframe src="http://wmrm-op.dev/authenticated.html?client_id=abc&state=state-for-authenticated&resonse_type=token&response_mode=web_message&redirect_uri=http://wmrm-rp.dev"></iframe>
       <script>
         $(window).on('message', function (event) {
           event = event.originalEvent;
           if (event.origin != 'http://wmrm-op.dev')
             console.error('invalid origin', event.origin);
           if (event.data && event.data.type == 'authorization_response')
-            console.info('Successful AuthZ Response from Authenticated iframe Window', event.data);
+            console.info('From Authenticated Window', event.data);
           $(window).off('message', arguments.callee);
         });
       </script>
@@ -25,7 +25,7 @@
 
     <article>
       <h2>Using Unauthenticated Popup Window</h2>
-      <a id="unauthenticated-link" href="http://wmrm-op.dev/unauthenticated.html?client_id=abc&state=xyzresonse_type=token&response_mode=web_message&redirect_uri=http://wmrm-rp.dev">
+      <a id="unauthenticated-link" href="http://wmrm-op.dev/unauthenticated.html?client_id=abc&state=state-for-unauthenticated&resonse_type=token&response_mode=web_message&redirect_uri=http://wmrm-rp.dev">
         Open Unauthenticated Popup Window
       </a>
       <script>
@@ -36,7 +36,7 @@
             if (event.origin != 'http://wmrm-op.dev')
               console.error('invalid origin', event.origin);
             if (event.data && event.data.type == 'authorization_response')
-              console.info('Successful AuthZ Response from Unauthenticated Popup Window', event.data);
+              console.info('From Unauthenticated Window', event.data);
             $(window).off('message', arguments.callee);
             event.source.close();
           });
