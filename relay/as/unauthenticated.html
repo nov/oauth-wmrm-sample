@@ -12,23 +12,13 @@
     <script>
       var params = $.deparam(location.search.substr(1));
       $('#authorize-button').click(function () {
-        $(window).on('message', function (event) {
-          event = event.originalEvent;
-          if (event.origin != params.redirect_uri)
-            console.error('invalid origin', event.origin);
-          if (event.data && event.data.type == 'relay_response')
-            event.source.frames[params.web_message_target].postMessage({
-              type: 'authorization_response',
-              response: {
-                token: 'access-token-with-user-interaction',
-                state: params.state
-              }
-            }, params.web_message_uri);
-          $(window).off('message', arguments.callee);
-        });
-        window.opener.postMessage({
-          type: 'relay_request'
-        }, params.redirect_uri);
+        window.opener.frames[params.web_message_target].postMessage({
+          type: 'authorization_response',
+          response: {
+            token: 'access-token-with-user-interaction',
+            state: params.state
+          }
+        }, params.web_message_uri);
       });
     </script>
   </body>
