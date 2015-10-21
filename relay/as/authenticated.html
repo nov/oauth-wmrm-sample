@@ -11,12 +11,11 @@
     <script>
       var params = $.deparam(location.search.substr(1));
       $(window).on('message', function (event) {
-        console.info(params);
         event = event.originalEvent;
         if (event.origin != params.redirect_uri)
           console.error('invalid origin', event.origin);
         if (event.data && event.data.type == 'relay_response')
-          event.source.document.getElementById(params.web_message_target).postMessage({
+          event.source.frames[params.web_message_target].postMessage({
             type: 'authorization_response',
             response: {
               token: 'access-token-without-user-interaction',
