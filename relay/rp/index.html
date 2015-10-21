@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8">
     <title>Main Window</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   </head>
   <body>
     <h1>Main Window (Relay Mode)</h1>
@@ -15,8 +14,9 @@
 
     <article>
       <h2>Using Authenticated iframe Window</h2>
-      <iframe src="http://wmrm-as.dev/authenticated.html?client_id=abc&state=state-authenticated&resonse_type=token&response_mode=web_message&redirect_uri=http://wmrm-rp.dev&web_message_uri=http://wmrm-rs.dev&web_message_target=message-target"></iframe>
+      <iframe src="http://wmrm-as.dev/authenticated.html?client_id=abc&state=state-authenticated&resonse_type=token&response_mode=web_message&redirect_uri=http://wmrm-rp.dev&web_message_uri=http://wmrm-rs.dev&web_message_target=0"></iframe>
       <script>
+        /**
         $(window).on('message', function (event) {
           event = event.originalEvent;
           if (event.origin != 'http://wmrm-as.dev')
@@ -27,30 +27,16 @@
             }, event.origin);
           $(window).off('message', arguments.callee);
         });
+        */
       </script>
     </article>
 
     <article>
       <h2>Using Unauthenticated Popup Window</h2>
-      <a id="unauthenticated-link" href="http://wmrm-as.dev/unauthenticated.html?client_id=abc&state=state-unauthenticated&resonse_type=token&response_mode=web_message&redirect_uri=http://wmrm-rp.dev&web_message_uri=http://wmrm-rs.dev&web_message_target=message-target">
+      <a id="unauthenticated-link" href="http://wmrm-as.dev/unauthenticated.html?client_id=abc&state=state-unauthenticated&resonse_type=token&response_mode=web_message&redirect_uri=http://wmrm-rp.dev&web_message_uri=http://wmrm-rs.dev&web_message_target=0">
         Open Unauthenticated Popup Window
       </a>
-      <script>
-        $('#unauthenticated-link').click(function () {
-          window.open($(this).attr('href'), '_unauthenticated', 'width=500, height=400');
-          $(window).on('message', function (event) {
-            event = event.originalEvent;
-            if (event.origin != 'http://wmrm-as.dev')
-              console.error('invalid origin', event.origin);
-            if (event.data && event.data.type == 'relay_request')
-              event.source.postMessage({
-                type: 'relay_response'
-              }, event.origin);
-            $(window).off('message', arguments.callee);
-          });
-          return false;
-        });
-      </script>
     </article>
+    <script type="text/javascript" src="index.js"></script>
   </body>
 </html>
