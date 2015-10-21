@@ -11,7 +11,7 @@
     <script>
       $(window).on('message', function (event) {
         event = event.originalEvent;
-        if (event.origin != 'http://wmrm-as.dev')
+        if (event.origin != 'http://relay-as.dev')
           console.error('invalid origin', event.origin);
         if (event.data && event.data.type == 'authorization_response') {
           console.info('In Message Target Window', event.data);

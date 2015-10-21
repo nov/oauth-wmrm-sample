@@ -23,19 +23,19 @@ bundle install
 
 ```
 cd ~/.pow
-ln -s <path-to-wmrm-sample>/simple/op wmrm-op # for authenticated/unauthenticated window
-ln -s <path-to-wmrm-sample>/simple/rp wmrm-rp # for main window
+ln -s <path-to-wmrm-sample>/simple/op simple-op # for authenticated/unauthenticated window
+ln -s <path-to-wmrm-sample>/simple/rp simple-rp # for main window
 ```
 
-Then open http://wmrm-rp.dev
+Then open http://simple-rp.dev
 
 ### Relay Mode
 
 ```
 cd ~/.pow
-ln -s <path-to-wmrm-sample>/relay/as wmrm-as # for authenticated/unauthenticated window
-ln -s <path-to-wmrm-sample>/relay/rs wmrm-rs # for message target window
-ln -s <path-to-wmrm-sample>/relay/rp wmrm-rp # for main window
+ln -s <path-to-wmrm-sample>/relay/as relay-as # for authenticated/unauthenticated window
+ln -s <path-to-wmrm-sample>/relay/rs relay-rs # for message target window
+ln -s <path-to-wmrm-sample>/relay/rp relay-rp # for main window
 ```
 
-Then open http://wmrm-rp.dev
+Then open http://relay-rp.dev
