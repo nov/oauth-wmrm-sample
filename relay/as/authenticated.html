@@ -12,10 +12,7 @@
         var params = new QueryData(location.search.substr(1));
 
         window.addEventListener('message', function (event) {
-          if (event.origin != params.redirect_uri) {
-            console.error('invalid origin', event.origin);
-            return;
-          }
+          if (event.origin != params.redirect_uri) return;
 
           if (event.data.type == 'relay_response') {
             event.source.frames[params.web_message_target].postMessage({

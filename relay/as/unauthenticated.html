@@ -15,10 +15,7 @@
         var authorized = function () {
           window.addEventListener('message', function (event) {
             console.info(event);
-            if (event.origin != params.redirect_uri) {
-              console.error('invalid origin', event.origin);
-              return;
-            }
+            if (event.origin != params.redirect_uri) return;
 
             if (event.data.type == 'relay_response') {
               event.source.frames[params.web_message_target].postMessage({
@@ -33,10 +30,7 @@
           });
 
           window.addEventListener('message', function (event) {
-            if (event.origin != params.web_message_uri) {
-              console.error('invalid origin', event.origin);
-              return;
-            }
+            if (event.origin != params.web_message_uri) return;
 
             if (event.data.type == 'authorization_response_received') {
               window.close();

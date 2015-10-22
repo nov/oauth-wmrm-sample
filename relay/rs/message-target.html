@@ -9,10 +9,7 @@
     <script>
       (function () {
         window.addEventListener('message', function (event) {
-          if (event.origin != 'http://relay-as.dev') {
-            console.error('invalid origin', event.origin);
-            return;
-          }
+          if (event.origin != 'http://relay-as.dev') return;
 
           if (event.data && event.data.type == 'authorization_response') {
             console.info('In Message Target Window', event.data);
