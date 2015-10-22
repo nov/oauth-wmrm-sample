@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Dedicated Worker</title>
+  </head>
+  <body>
+    <script>
+      (function () {
+        var worker = new SharedWorker(
+          'https://shared-worker-as.dev/authorize.js' +  '?client_id=abc&state=state-for-authenticated&resonse_type=token&response_mode=web_worker&redirect_uri=http://shared-worker-rp.dev'
+        );
+      })();
+    </script>
+  </body>
+</html>
