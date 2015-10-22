@@ -3,23 +3,27 @@
   <head>
     <meta charset="utf-8">
     <title>Unauthenticated Window</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="/jquery.deparam.js"></script>
+    <script src="/QueryData.js"></script>
   </head>
   <body>
     <h1>Unauthenticated Window</h1>
     <button id="authorize-button">Authorize!</button>
     <script>
-      var params = $.deparam(location.search.substr(1));
-      $('#authorize-button').click(function () {
-        window.opener.postMessage({
-          type: 'authorization_response',
-          response: {
-            token: 'access-token-with-user-interaction',
-            state: params.state
-          }
-        }, params.redirect_uri);
-      });
+      (function () {
+        var params = new QueryData(location.search.substr(1));
+
+        var authorized = function () {
+          window.opener.postMessage({
+            type: 'authorization_response',
+            response: {
+              token: 'access-token-with-user-interaction',
+              state: params.state
+            }
+          }, params.redirect_uri);
+        };
+
+        document.getElementById('authorize-button').onclick = authorized;
+      })();
     </script>
   </body>
 </html>

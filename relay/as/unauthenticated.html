@@ -3,33 +3,54 @@
   <head>
     <meta charset="utf-8">
     <title>Unauthenticated Window</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="/jquery.deparam.js"></script>
+    <script src="/QueryData.js"></script>
   </head>
   <body>
     <h1>Unauthenticated Window</h1>
     <button id="authorize-button">Authorize!</button>
     <script>
-      var params = $.deparam(location.search.substr(1));
-      $('#authorize-button').click(function () {
-        $(window).on('message', function (event) {
-          event = event.originalEvent;
-          if (event.origin != params.redirect_uri)
-            console.error('invalid origin', event.origin);
-          if (event.data && event.data.type == 'relay_response')
-            event.source.frames[params.web_message_target].postMessage({
-              type: 'authorization_response',
-              response: {
-                token: 'access-token-with-user-interaction',
-                state: params.state
-              }
-            }, params.web_message_uri);
-          $(window).off('message', arguments.callee);
-        });
-        window.opener.postMessage({
-          type: 'relay_request'
-        }, params.redirect_uri);
-      });
+      (function () {
+        var params = new QueryData(location.search.substr(1));
+
+        var authorized = function () {
+          window.addEventListener('message', function (event) {
+            console.info(event);
+            if (event.origin != params.redirect_uri) {
+              console.error('invalid origin', event.origin);
+              return;
+            }
+
+            if (event.data.type == 'relay_response') {
+              event.source.frames[params.web_message_target].postMessage({
+                type: 'authorization_response',
+                response: {
+                  token: 'access-token-with-user-interaction',
+                  state: params.state
+                }
+              }, params.web_message_uri);
+              window.removeEventListener('message', arguments.callee);
+            }
+          });
+
+          window.addEventListener('message', function (event) {
+            if (event.origin != params.web_message_uri) {
+              console.error('invalid origin', event.origin);
+              return;
+            }
+
+            if (event.data.type == 'authorization_response_received') {
+              window.close();
+              window.removeEventListener('message', arguments.callee);
+            }
+          })
+
+          window.opener.postMessage({
+            type: 'relay_request'
+          }, params.redirect_uri);
+        }
+
+        document.getElementById('authorize-button').onclick = authorized;
+      })();
     </script>
   </body>
 </html>

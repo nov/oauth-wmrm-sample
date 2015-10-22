@@ -3,23 +3,28 @@
   <head>
     <meta charset="utf-8">
     <title>Message Target Window</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   </head>
   <body>
     <h1>Message Target Window</h1>
-    <p id="display">...waiting AuthZ response...</p>
     <script>
-      $(window).on('message', function (event) {
-        event = event.originalEvent;
-        if (event.origin != 'http://relay-as.dev')
-          console.error('invalid origin', event.origin);
-        if (event.data && event.data.type == 'authorization_response') {
-          console.info('In Message Target Window', event.data);
-          $('#display').text('Access Token Received!');
-        }
-        if (event.source.parent == event.source)
-          event.source.close();
-      });
+      (function () {
+        window.addEventListener('message', function (event) {
+          if (event.origin != 'http://relay-as.dev') {
+            console.error('invalid origin', event.origin);
+            return;
+          }
+
+          if (event.data && event.data.type == 'authorization_response') {
+            console.info('In Message Target Window', event.data);
+          }
+
+          if (event.source.parent == event.source) {
+            event.source.postMessage({
+              type: 'authorization_response_received'
+            }, event.origin);
+          }
+        });
+      })();
     </script>
   </body>
 </html>

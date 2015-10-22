@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8">
     <title>Main Window</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   </head>
   <body>
     <h1>Main Window (Simple Mode)</h1>
@@ -12,14 +11,16 @@
       <h2>Using Authenticated iframe Window</h2>
       <iframe src="http://simple-op.dev/authenticated.html?client_id=abc&state=state-for-authenticated&resonse_type=token&response_mode=web_message&redirect_uri=http://simple-rp.dev"></iframe>
       <script>
-        $(window).on('message', function (event) {
-          event = event.originalEvent;
-          if (event.origin != 'http://simple-op.dev')
-            console.error('invalid origin', event.origin);
-          if (event.data && event.data.type == 'authorization_response')
-            console.info('From Authenticated Window', event.data);
-          $(window).off('message', arguments.callee);
-        });
+        (function () {
+          window.addEventListener('message', function (event) {
+            if (event.origin != 'http://simple-op.dev') return;
+
+            if (event.data.type == 'authorization_response') {
+              console.info('From Authenticated Window', event.data);
+              window.removeEventListener('message', arguments.callee);
+            }
+          });
+        })();
       </script>
     </article>
 
@@ -29,19 +30,25 @@
         Open Unauthenticated Popup Window
       </a>
       <script>
-        $('#unauthenticated-link').click(function () {
-          window.open($(this).attr('href'), '_unauthenticated', 'width=500, height=400');
-          $(window).on('message', function (event) {
-            event = event.originalEvent;
-            if (event.origin != 'http://simple-op.dev')
-              console.error('invalid origin', event.origin);
-            if (event.data && event.data.type == 'authorization_response')
-              console.info('From Unauthenticated Window', event.data);
-            $(window).off('message', arguments.callee);
-            event.source.close();
-          });
-          return false;
-        });
+        (function () {
+          var start_dancing = function (clicked) {
+            window.open(clicked.srcElement.href, '_unauthenticated', 'width=500, height=400');
+
+            window.addEventListener('message', function (event) {
+              if (event.origin != 'http://simple-op.dev') return;
+
+              if (event.data.type == 'authorization_response') {
+                console.info('From Unauthenticated Window', event.data);
+                window.removeEventListener('message', arguments.callee);
+                event.source.close();
+              }
+            });
+
+            return false;
+          };
+
+          document.getElementById('unauthenticated-link').onclick = start_dancing;
+        })();
       </script>
     </article>
   </body>
