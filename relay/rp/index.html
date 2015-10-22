@@ -9,12 +9,12 @@
 
     <article>
       <h2>Message Target Window</h2>
-      <iframe id="message-target" src="http://relay-rs.dev/message-target.html"></iframe>
+      <iframe id="message-target" src="http://relay-rs.dev/message-target.html" width="450" height="170"></iframe>
     </article>
 
     <article>
       <h2>Using Authenticated iframe Window</h2>
-      <iframe src="http://relay-as.dev/authenticated.html?client_id=abc&state=state-authenticated&resonse_type=token&response_mode=web_message&redirect_uri=http://relay-rp.dev&web_message_uri=http://relay-rs.dev&web_message_target=0"></iframe>
+      <iframe src="http://relay-as.dev/authenticated.html?client_id=abc&state=state-authenticated&resonse_type=token&response_mode=web_message&redirect_uri=http://relay-rp.dev&web_message_uri=http://relay-rs.dev&web_message_target=0" width="450" height="80"></iframe>
       <script>
         (function () {
           window.addEventListener('message', function (event) {

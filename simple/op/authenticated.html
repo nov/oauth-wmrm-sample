@@ -14,7 +14,8 @@
         window.parent.postMessage({
           type: 'authorization_response',
           response: {
-            token: 'access-token-without-user-interaction',
+            error: 'consent_required',
+            // token: 'access-token-without-user-interaction',
             state: params.state
           }
         }, params.redirect_uri);

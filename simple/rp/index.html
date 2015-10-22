@@ -7,9 +7,11 @@
   <body>
     <h1>Main Window (Simple Mode)</h1>
 
+    <pre id="display"></pre>
+
     <article>
       <h2>Using Authenticated iframe Window</h2>
-      <iframe src="http://simple-op.dev/authenticated.html?client_id=abc&state=state-for-authenticated&resonse_type=token&response_mode=web_message&redirect_uri=http://simple-rp.dev"></iframe>
+      <iframe src="http://simple-op.dev/authenticated.html?client_id=abc&state=state-for-authenticated&resonse_type=token&response_mode=web_message&redirect_uri=http://simple-rp.dev" width="450" height="80"></iframe>
       <script>
         (function () {
           window.addEventListener('message', function (event) {
@@ -17,6 +19,7 @@
 
             if (event.data.type == 'authorization_response') {
               console.info('From Authenticated Window', event.data);
+              document.getElementById('display').innerText = JSON.stringify(event.data.response, null, 2);
               window.removeEventListener('message', arguments.callee);
             }
           });
@@ -39,6 +42,7 @@
 
               if (event.data.type == 'authorization_response') {
                 console.info('From Unauthenticated Window', event.data);
+                document.getElementById('display').innerText = JSON.stringify(event.data.response, null, 2);
                 window.removeEventListener('message', arguments.callee);
                 event.source.close();
               }
