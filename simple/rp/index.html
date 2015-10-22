@@ -11,11 +11,11 @@
 
     <article>
       <h2>Using Authenticated iframe Window</h2>
-      <iframe src="http://simple-op.dev/authenticated.html?client_id=abc&state=state-for-authenticated&resonse_type=token&response_mode=web_message&redirect_uri=http://simple-rp.dev" width="450" height="80"></iframe>
+      <iframe src="http://simple-as.dev/authenticated.html?client_id=abc&state=state-for-authenticated&resonse_type=token&response_mode=web_message&redirect_uri=http://simple-rp.dev" width="450" height="80"></iframe>
       <script>
         (function () {
           window.addEventListener('message', function (event) {
-            if (event.origin != 'http://simple-op.dev') return;
+            if (event.origin != 'http://simple-as.dev') return;
 
             if (event.data.type == 'authorization_response') {
               console.info('From Authenticated Window', event.data);
@@ -29,7 +29,7 @@
 
     <article>
       <h2>Using Unauthenticated Popup Window</h2>
-      <a id="unauthenticated-link" href="http://simple-op.dev/unauthenticated.html?client_id=abc&state=state-for-unauthenticated&resonse_type=token&response_mode=web_message&redirect_uri=http://simple-rp.dev">
+      <a id="unauthenticated-link" href="http://simple-as.dev/unauthenticated.html?client_id=abc&state=state-for-unauthenticated&resonse_type=token&response_mode=web_message&redirect_uri=http://simple-rp.dev">
         Open Unauthenticated Popup Window
       </a>
       <script>
@@ -38,7 +38,7 @@
             window.open(clicked.srcElement.href, '_unauthenticated', 'width=500, height=400');
 
             window.addEventListener('message', function (event) {
-              if (event.origin != 'http://simple-op.dev') return;
+              if (event.origin != 'http://simple-as.dev') return;
 
               if (event.data.type == 'authorization_response') {
                 console.info('From Unauthenticated Window', event.data);

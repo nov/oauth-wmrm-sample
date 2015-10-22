@@ -23,7 +23,7 @@ bundle install
 
 ```
 cd ~/.pow
-ln -s <path-to-wmrm-sample>/simple/op simple-op # for authenticated/unauthenticated window
+ln -s <path-to-wmrm-sample>/simple/as simple-as # for authenticated/unauthenticated window
 ln -s <path-to-wmrm-sample>/simple/rp simple-rp # for main window
 ```
 
