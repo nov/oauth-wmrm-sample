@@ -9,10 +9,6 @@ class StaticServer < Sinatra::Base
     send_sinatra_file(request.path) {404}
   end
 
-  not_found do
-    send_file(File.join(__dir__, '404.html'), {:status => 404})
-  end
-
   def send_sinatra_file(path, &missing_file_block)
     file_path = File.join(__dir__, path)
     file_path = File.join(file_path, 'index.html') unless file_path =~ /\.[a-z]+$/i
