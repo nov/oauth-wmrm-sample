@@ -6,6 +6,7 @@
   </head>
   <body>
     <h1>Message Target Window</h1>
+    <pre id="display"></pre>
     <script>
       (function () {
         window.addEventListener('message', function (event) {
@@ -13,6 +14,7 @@
 
           if (event.data && event.data.type == 'authorization_response') {
             console.info('In Message Target Window', event.data);
+            document.getElementById('display').innerText = JSON.stringify(event.data.response, null, 2);
           }
 
           if (event.source.parent == event.source) {
