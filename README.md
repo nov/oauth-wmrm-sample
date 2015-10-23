@@ -39,3 +39,17 @@ ln -s <path-to-wmrm-sample>/relay/rp relay-rp # for main window
 ```
 
 Then open http://relay-rp.dev
+
+### Workers (Super Experimental)
+
+#### Service Worker
+
+```
+cd ~/.pow
+ln -s <path-to-wmrm-sample>/workers/service/as service-worker-as # for ... what is your name?
+ln -s <path-to-wmrm-sample>/workers/service/rp service-worker-rp # for main window
+```
+
+#### Shared Worker
+
+SharedWorker and Worker weren't so attractive for us. We might work on them later.

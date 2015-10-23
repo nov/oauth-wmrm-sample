@@ -1,0 +1,4 @@
+{
+  "access_token": "token-without-user-interaction",
+  "token_type": "bearer"
+}
