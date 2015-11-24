@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>RS iframe</title>
+  </head>
+  <body>
+    <h1>RS iframe</h1>
+    <pre id="display"></pre>
+    <iframe id="rs-iframe" src="http://idp-iframe-as.dev/iframe.html" width="450" height="170"></iframe>
+    <script>
+      (function () {
+        window.addEventListener('message', function (event) {
+          if (event.origin != 'http://idp-iframe-rp.dev') return;
+
+          console.info('rp-api', event.data);
+          if (event.data.rpc == 'getXyzResource') {
+            event.source.postMessage({
+              error: 'authorization_required',
+              authorization_url: 'http://idp-iframe-as.dev/popup.html?response_type=permission&redirect_uri=',
+              idp_popup_window_name: 'idp-popup',
+              idp_popup_window_options: 'width=500, height=400'
+            }, event.origin);
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

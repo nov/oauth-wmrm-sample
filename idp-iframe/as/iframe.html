@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IdP iframe</title>
+    <script src="/QueryData.js"></script>
+  </head>
+  <body>
+    <h1>IdP iframe</h1>
+    <script>
+      (function () {
+        window.addEventListener("storage", function (event) {
+          var oldValue = event.oldValue;
+          var newValue = event.newValue;
+          var storageArea = event.storageArea;
+          console.info('storage event', event);
+
+          if( oldValue === null && newValue !== null){
+            console.log( "type : add" );
+          }else if( oldValue !== null && newValue === null){
+            console.log( "type : remove" );
+          }else if( oldValue !== null && newValue !== null){
+            console.log( "type : update" );
+          }else if( oldValue === null && newValue === null && storageArea.length === 0){
+            console.log( "type : clear" );
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

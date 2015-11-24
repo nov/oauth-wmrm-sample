@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Main Window</title>
+  </head>
+  <body>
+    <h1>Main Window</h1>
+
+    <article>
+      <iframe id="rs-iframe" src="http://idp-iframe-rs.dev/iframe.html" width="450" height="170"></iframe>
+      <p>
+        <a id="get-xyz-resource" href="#">Get XYZ Resource</a>
+      </p>
+      <script>
+        (function () {
+          window.addEventListener('message', function (event) {
+            if (event.origin != 'http://idp-iframe-rs.dev') return;
+
+            console.info(event.data);
+            if (event.data.error == 'authorization_required') {
+              window.open(
+                event.data.authorization_url + '&client_id=client_12345',
+                event.data.idp_popup_window_name,
+                event.data.idp_popup_window_options
+              );
+              window.removeEventListener('message', arguments.callee);
+            }
+          });
+
+          document.getElementById('get-xyz-resource').onclick = function () {
+            document.getElementById('rs-iframe').contentWindow.postMessage({
+              rpc: 'getXyzResource'
+            }, 'http://idp-iframe-rs.dev');
+            return false;
+          };
+        })();
+      </script>
+    </article>
+    </article>
+  </body>
+</html>

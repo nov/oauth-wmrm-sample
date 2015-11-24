@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IdP Popup</title>
+    <script src="/QueryData.js"></script>
+  </head>
+  <body>
+    <h1>IdP Popup</h1>
+    <script>
+      (function () {
+        var params = new QueryData(location.search.substr(1));
+        localStorage.setItem('token', 'token' + Math.random());
+      })();
+    </script>
+  </body>
+</html>
