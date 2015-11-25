@@ -14,7 +14,7 @@
 
           if (event.data && event.data.type == 'authorization_response') {
             console.info('In Message Target Window', event.data);
-            document.getElementById('display').innerText = JSON.stringify(event.data.response, null, 2);
+            document.getElementById('display').textContent = JSON.stringify(event.data.response, null, 2);
           }
 
           if (event.source.parent == event.source) {

@@ -19,7 +19,7 @@
 
             if (event.data.type == 'authorization_response') {
               console.info('From Authenticated Window', event.data);
-              document.getElementById('display').innerText = JSON.stringify(event.data.response, null, 2);
+              document.getElementById('display').textContent = JSON.stringify(event.data.response, null, 2);
               window.removeEventListener('message', arguments.callee);
             }
           });
@@ -35,14 +35,14 @@
       <script>
         (function () {
           var start_dancing = function (clicked) {
-            window.open(clicked.srcElement.href, '_unauthenticated', 'width=500, height=400');
+            window.open(clicked.target.href, '_unauthenticated', 'width=500, height=400');
 
             window.addEventListener('message', function (event) {
               if (event.origin != 'http://simple-as.dev') return;
 
               if (event.data.type == 'authorization_response') {
                 console.info('From Unauthenticated Window', event.data);
-                document.getElementById('display').innerText = JSON.stringify(event.data.response, null, 2);
+                document.getElementById('display').textContent = JSON.stringify(event.data.response, null, 2);
                 window.removeEventListener('message', arguments.callee);
                 event.source.close();
               }

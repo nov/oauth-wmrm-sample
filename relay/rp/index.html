@@ -39,7 +39,7 @@
       <script>
         (function () {
           var start_dancing = function (clicked) {
-            window.open(clicked.srcElement.href, '_unauthenticated', 'width=500, height=400');
+            window.open(clicked.target.href, '_unauthenticated', 'width=500, height=400');
 
             window.addEventListener('message', function (event) {
               if (event.origin != 'http://relay-as.dev') return;
